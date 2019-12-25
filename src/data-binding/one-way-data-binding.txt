@@ -1,0 +1,10 @@
+>> One-Way Data Binding (In Classical Template System):
+    1- Merging 'template' and 'model' components together into 'view'.
+    2- Changes to the 'model' or related sections of the 'view' are not 
+    automatically reflected in the 'view'.
+    3- Any changes that the user makes to the 'view' are not reflected in 
+    the 'model'.
+    4- The developer has to write code that constantly syncs the 'view' 
+    with the 'model' and the 'model' with the 'view'.
+
+==========================================================================

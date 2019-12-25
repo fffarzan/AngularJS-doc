@@ -1,0 +1,11 @@
+>> Two-Way Data Binding (In AngularJS Template):
+    1- Procedure:
+        a) First the template (which is the uncompiled HTML along with any 
+        additional markup or directives) is compiled on the browser.
+        b) The compilation step produces a live view.
+        c) Any changes to the view are immediately reflected in the model, 
+        and any changes in the model are propagated to the view. 
+    2- We can think of the view as simply an instant projection of the 
+    model.
+    3- The controller is completely separated from the view and unaware of 
+    it.

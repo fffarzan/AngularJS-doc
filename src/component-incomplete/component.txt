@@ -1,0 +1,138 @@
+>> Definition:
+    1- A special kind of directive.
+
+>> Advantages:
+    1- Optimized for component-based architecture.
+    2- Simpler configuration.
+    3- Best Practice.
+
+>> When Not to Use:
+    1- For directives that need to perform actions in compile and pre-link 
+    functions, because they aren't available.
+    2- When we need advanced directive definition options like priority, 
+    terminal, multi-element.
+    3- When we want a directive that is triggered by an attribute or CSS 
+    class, rather than an element.
+
+>> Crating and Configuring:
+    1- Registering: with `.component()` method of an AngularJS module.
+    2- Take two arguments:
+        a) Name of the component.
+        b) Config object.
+    3- Note: This method does not take a `factory` function.
+    4- Note: We can add components via `$compileProvider` in a module
+    config phase.
+
+>> Comparsion Between Directive and Component:
+    1- binding:
+        a) Directive: No.
+        b) Component: Yes. Binds to controller.
+    2- bindToController:
+        a) Directive: Yes(false).
+        b) Component: No. Using binding instead.
+    3- compile function:
+        a) Directive: Yes.
+        b) Component: No.
+    4- controller:
+        a) Directive: Yes.
+        b) Component: Yes(function () {}).
+    5- controllerAs:
+        a) Directive: Yes(false).
+        b) Component: Yes($ctrl).
+    6- link functions:
+        a) Directive: Yes.
+        b) Component: No.
+    7- multiElement:
+        a) Directive: Yes.
+        b) Component: No.
+    8- priority:
+        a) Directive: Yes.
+        b) Component: No.
+    9- require:
+        a) Directive: Yes.
+        b) Component: Yes.
+    10- restrict:
+        a) Directive: Yes.
+        b) Component: No. Restricted to elements only.
+    11- scope:
+        a) Directive: Yes(false).
+        b) Component: No. Scope is always isolated.
+    12- template:
+        a) Directive: Yes.
+        b) Component: Yes. Injectable.
+    13- templateNamespace:
+        a) Directive: Yes.
+        b) Component: No.
+    14- templateUrl:
+        a) Directive: Yes.
+        b) Component: Yes. Injectable.
+    15- terminal:
+        a) Directive: Yes.
+        b) Component: No.
+    16- transclude:
+        a) Directive: Yes(false).
+        b) Component: Yes(false).
+
+>> Controlling Their Own View and Data:
+    1- They should never modify any data or DOM that is out of their Own 
+    scope (Because of problems accured when it is not clear which part of 
+    the application is responsible for modifying the data). 
+
+>> Well-defined Public API:
+    1- Inputs: `<` and `@`.
+        a) `<`: Denotes  oner-way bindings.
+            Differcence with `=`: the bound properties in the component 
+            scope are not watched. Means if we assign a new value to the 
+            property in component scope, it will not update parent scope.
+        b) `@`: Used when the input is string, especially when the value 
+            of the binding does not change.
+    2- Outputs: `&`.
+        Functions as callback to component event.
+    3-Ex:
+    bindings: {
+        hero: '<',
+        component: '@',
+        onDelete: '&'
+    }
+    4- Note: Instead of manipulating Input Data, the component calls the 
+    correct Output Event with the changed data. Means the component does 
+    not delete the input object, but sends it back to the owner component 
+    via the correct event.
+
+>> Well-defined lifecycle:
+    1- Each component can implement 'lifecycle hooks':
+        a) `$nInit()`:
+            > Called on each controller after all the controllers on an 
+            element have been constructed and had their bindings 
+            initialized (and before the pre & post linking functions for 
+            the directives on this element).
+        b) `$onChanges(changesObj)`:
+            > Called whenever one-way bindings are updated.
+            > `changesObj`: are an object of the form `{ currentValue, 
+            previousValue, isFirstChange() }`.
+        c) `$doCheck()`: 
+            > Called on each turn of the digest cycle.
+            > Provides an opportunity to detect and act on changes.
+            > Implementing this has no effect on when $onChanges is called.
+            > This hook is invoked with no arguments; if detecting changes, 
+            you must store the previous value(s) for comparison to the 
+            current values.
+        d) `$onDestroy()`:
+            > Use this hook for releasing external resources, watches and 
+            event handlers.
+        e) `$postLink()`: 
+            > Called after this controller's element and its children have 
+            been linked.
+            > can be used to set up DOM event handlers and do direct DOM 
+            manipulation.
+            > Note that child elements that contain templateUrl directives will not have been compiled and linked since they are waiting for their template to load asynchronously and their own compilation and linking has been suspended until that occurs. This hook can be considered analogous to the ngAfterViewInit and ngAfterContentInit hooks in Angular. Since the compilation process is rather different in AngularJS there is no direct mapping and care should be taken when upgrading.
+
+>> An application is a tree of components:
+    1- Ideally, the whole application should be a tree of components that 
+    implement clearly defined inputs and outputs, and minimize two-way 
+    data binding.
+
+>> as route templates:
+    1-  In a component-based application, every view is a component.
+
+==========================================================================

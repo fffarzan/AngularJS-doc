@@ -1,0 +1,7 @@
+>> Definition:
+    1- It's the automatic synchronization of data between 'model' and 'view' 
+    components.
+    2- Treat 'model' as the "single-source-of-truth" in the application.
+    3- 'view' is a projection of 'model' at all times.
+
+    ==========================================================================
